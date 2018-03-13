@@ -65,10 +65,10 @@ options:
       - List of packages to download (default: [])
     required: false
     default: []
-    
+
 # informational: requirements for nodes
 requirements:
-    - yum 
+    - yum
     - rpmUtils
 author: "Johnathon Hall"
 '''
@@ -79,10 +79,10 @@ EXAMPLES = '''
     packages:
       - bro
       - suricata
-   
+
 # Download packages from a group and using a config file
 - repodownloader:
-    packages: 
+    packages:
       -  bro
       -  suricata
     groups:
@@ -91,7 +91,7 @@ EXAMPLES = '''
     config: "/tmp/myconfig.conf"
 # Download packages both specified and from a group while excluding a pattern
 - repodownloader:
-    packages: 
+    packages:
       -  bro
       -  suricata
     groups:
@@ -191,7 +191,6 @@ class RepoTrack(yum.YumBase):
     def findDeps(self, po):
         """Return the dependencies for a given package, as well
            possible solutions for those dependencies.
-
            Returns the deps as a dict  of:
             dict[reqs] = [list of satisfying pkgs]"""
 
@@ -249,7 +248,7 @@ def main():
             exclude=dict(type='str', required=False, default=None),
             groups=dict(type='list', required=False, default=[]),
             packages=dict(type='list', required=False, default=[]),
-            # present==latest this is an alias 
+            # present==latest this is an alias
             state=dict(type='str', required=False, default='latest', choices=['present', 'latest', 'all'])
         ),
         supports_check_mode=True
@@ -265,7 +264,7 @@ def main():
     newest = True
     if module.params["state"] == 'all':
         newest = False
-    
+
     if len(module.params["packages"]) == 0 and not module.params["groups"]:
         module.fail_json(rc=1, msg='Error: no packages or groups specified')
 
